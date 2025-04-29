@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace FreeCourse.Services.Catalog.Dtos.Course
 {
-    public class CourseDto
+    internal class CourseDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

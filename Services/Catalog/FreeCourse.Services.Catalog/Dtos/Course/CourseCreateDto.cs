@@ -3,7 +3,7 @@ using FreeCourse.Services.Catalog.Dtos.Feature;
 
 namespace FreeCourse.Services.Catalog.Dtos.Course
 {
-    public class CourseCreateDto
+    internal class CourseCreateDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

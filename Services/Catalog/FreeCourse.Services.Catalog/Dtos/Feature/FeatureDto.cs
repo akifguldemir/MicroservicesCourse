@@ -1,6 +1,6 @@
 ﻿namespace FreeCourse.Services.Catalog.Dtos.Feature
 {
-    public class FeatureDto
+    internal class FeatureDto
     {
         public int Duration { get; set; }
 
