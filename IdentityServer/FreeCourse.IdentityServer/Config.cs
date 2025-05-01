@@ -1,9 +1,24 @@
+using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
 namespace FreeCourse.IdentityServer;
 
 public static class Config
 {
+    public static IEnumerable<ApiResource> ApiResources =>
+        new ApiResource[]
+        {
+            new ApiResource("resource_catalog", "Catalog API")
+            {
+                Scopes = { "catalog_fullpermission" }
+            },
+            new ApiResource("photo_stock", "Photo Stock API")
+            {
+                Scopes = { "photo_stock_fullpermission" }
+            },
+            new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+        };
+
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
         {
@@ -14,8 +29,9 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("scope1"),
-            new ApiScope("scope2"),
+            new ApiScope("catalog_fullpermission","Catalog API için full eriþim"),
+            new ApiScope("photo_stock_fullpermission","Photo Stock API için full eriþim"),
+            new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
         };
 
     public static IEnumerable<Client> Clients =>
@@ -24,13 +40,13 @@ public static class Config
             // m2m client credentials flow client
             new Client
             {
-                ClientId = "m2m.client",
-                ClientName = "Client Credentials Client",
+                ClientId = "WebMvcClient",
+                ClientName = "Asp.Net Core MVC",
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                AllowedScopes = { "scope1" }
+                AllowedScopes = { "catalog_fullpermission", "photo_stock_fullpermission", IdentityServerConstants.LocalApi.ScopeName }
             },
 
             // interactive client using code flow + pkce
