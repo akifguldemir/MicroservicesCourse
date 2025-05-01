@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace FreeCourse.Services.Catalog.Services
 {
-    internal  class CourseService
+    public class CourseService : ICourseService
     {
         private readonly IMongoCollection<Course> _courseCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
@@ -24,7 +24,7 @@ namespace FreeCourse.Services.Catalog.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CourseDto>> GetAllAsync()
+        public async Task<Response<List<CourseDto>>> GetAllAsync()
         {
             var courses = await _courseCollection.Find(x => true).ToListAsync();
             if (courses.Any())
@@ -33,21 +33,23 @@ namespace FreeCourse.Services.Catalog.Services
                 {
                     course.Category = await _categoryCollection.Find<Category>(x => x.Id == course.CategoryId).FirstAsync();
                 }
-            }else
+            }
+            else
             {
                 courses = new List<Course>();
             }
-            return Response<List<CourseDto>>.Success(_mapper.Map<List<CourseDto>>(courses), 200).Data;
+            return Response<List<CourseDto>>.Success(_mapper.Map<List<CourseDto>>(courses), 200);
+        }
 
-        public async Task<CourseDto> GetByIdAsync(string id)
+        public async Task<Response<CourseDto>> GetByIdAsync(string id)
         {
             var course = await _courseCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             if (course == null)
             {
-                return Response<CourseDto>.Fail("Course not found", 404).Data;
+                return Response<CourseDto>.Fail("Course not found", 404);
             }
             course.Category = await _categoryCollection.Find<Category>(x => x.Id == course.CategoryId).FirstAsync();
-            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course), 200).Data;
+            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course), 200);
         }
 
         public async Task<Response<List<CourseDto>>> GetAllByUserIdAsync(string userId)
@@ -64,11 +66,11 @@ namespace FreeCourse.Services.Catalog.Services
             return Response<List<CourseDto>>.Success(_mapper.Map<List<CourseDto>>(courses), 200);
         }
 
-        public async Task<CourseDto> CreateAsync(CourseCreateDto courseCreateDto)
+        public async Task<Response<CourseCreateDto>> CreateAsync(CourseCreateDto courseCreateDto)
         {
             var course = _mapper.Map<Course>(courseCreateDto);
             await _courseCollection.InsertOneAsync(course);
-            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course), 200).Data;
+            return Response<CourseCreateDto>.Success(_mapper.Map<CourseCreateDto>(course), 200);
         }
 
         public async Task<Response<NoContent>> UpdateAsync(CourseUpdateDto courseUpdateDto)
