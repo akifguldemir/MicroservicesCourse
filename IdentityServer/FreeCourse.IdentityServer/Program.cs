@@ -24,6 +24,11 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+
+
+    builder.Services.AddLocalApiAuthentication();
+    builder.Services.AddControllers();
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
@@ -88,6 +93,8 @@ try
         });
     }
 
+    app.MapControllers();
+    app.UseAuthentication();
     app.Run();
 }
 catch (Exception ex) when (ex is not HostAbortedException)

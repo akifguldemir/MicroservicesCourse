@@ -1,13 +1,16 @@
 ﻿using FreeCourse.IdentityServer.Dtos;
 using FreeCourse.IdentityServer.Models;
 using FreeCourse.Shared.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static Duende.IdentityServer.IdentityServerConstants;
 
 namespace FreeCourse.IdentityServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize(LocalApi.PolicyName)]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,7 +21,7 @@ namespace FreeCourse.IdentityServer.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> SignUp(SignupDto signupDto)
         {
             var user = new ApplicationUser()

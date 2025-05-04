@@ -8,31 +8,23 @@ public static class Config
     public static IEnumerable<ApiResource> ApiResources =>
         new ApiResource[]
         {
-            new ApiResource("resource_catalog", "Catalog API")
-            {
-                Scopes = { "catalog_fullpermission" }
-            },
-            new ApiResource("photo_stock", "Photo Stock API")
-            {
-                Scopes = { "photo_stock_fullpermission" }
-            },
+            new ApiResource("resource_catalog"){Scopes = { "catalog_fullpermission" }},
+            new ApiResource("photo_stock"){Scopes = { "photo_stock_fullpermission" }},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
         {
-            new IdentityResources.OpenId(),
-            new IdentityResources.Profile(),
+
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new ApiScope[]
-        {
+        [
             new ApiScope("catalog_fullpermission","Catalog API için full eriþim"),
             new ApiScope("photo_stock_fullpermission","Photo Stock API için full eriþim"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
-        };
+        ];
 
     public static IEnumerable<Client> Clients =>
         new Client[]
@@ -42,11 +34,13 @@ public static class Config
             {
                 ClientId = "WebMvcClient",
                 ClientName = "Asp.Net Core MVC",
+                AllowOfflineAccess = true,
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                AllowedScopes = { "catalog_fullpermission", "photo_stock_fullpermission", IdentityServerConstants.LocalApi.ScopeName }
+                AllowedScopes = { "catalog_fullpermission", "photo_stock_fullpermission", IdentityServerConstants.LocalApi.ScopeName },
+                AllowAccessTokensViaBrowser=true
             },
 
             // interactive client using code flow + pkce

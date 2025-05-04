@@ -1,4 +1,5 @@
 using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 using FreeCourse.IdentityServer.Data;
 using FreeCourse.IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,19 @@ internal static class HostingExtensions
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
+            .AddInMemoryApiResources(new[]
+            {
+                // ApiResource tanýmlamalarý
+                new ApiResource("resource_catalog")
+                {
+                    Scopes = { "catalog_fullpermission" }
+                },
+                new ApiResource("photo_stock")
+                {
+                    Scopes = { "photo_stock_fullpermission" }
+                },
+                new ApiResource(IdentityServerConstants.LocalApi.ScopeName) // Local API
+            })
             .AddAspNetIdentity<ApplicationUser>()
             .AddLicenseSummary();
 
