@@ -16,7 +16,10 @@ public static class Config
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
         {
-
+            new IdentityResources.Email(),
+            new IdentityResources.OpenId(),
+            new IdentityResources.Profile(),
+            new IdentityResource(){Name="roles", DisplayName="Roles",Description = "Kullanýcý Rolleri", UserClaims=new[]{"role"}},
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -34,12 +37,33 @@ public static class Config
             {
                 ClientId = "WebMvcClient",
                 ClientName = "Asp.Net Core MVC",
-                AllowOfflineAccess = true,
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
                 AllowedScopes = { "catalog_fullpermission", "photo_stock_fullpermission", IdentityServerConstants.LocalApi.ScopeName },
+                AllowAccessTokensViaBrowser=true
+            },
+
+             new Client
+            {
+                ClientId = "WebMvcClientForUser",
+                ClientName = "Asp.Net Core MVC",
+                AllowOfflineAccess = true,
+
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+
+                AllowedScopes = { IdentityServerConstants.StandardScopes.Email,
+                     IdentityServerConstants.StandardScopes.OpenId,
+                     IdentityServerConstants.StandardScopes.Profile,
+                     IdentityServerConstants.StandardScopes.OfflineAccess,
+                      IdentityServerConstants.LocalApi.ScopeName,
+                     "roles"},
+                AccessTokenLifetime = 3600,
+                RefreshTokenExpiration = TokenExpiration.Absolute,
+                AbsoluteRefreshTokenLifetime = 86400,
+                RefreshTokenUsage = TokenUsage.ReUse,
                 AllowAccessTokensViaBrowser=true
             },
 

@@ -4,6 +4,7 @@ using Duende.IdentityServer.Licensing;
 using FreeCourse.IdentityServer;
 using FreeCourse.IdentityServer.Data;
 using FreeCourse.IdentityServer.Models;
+using FreeCourse.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +27,10 @@ try
 
 
 
+
     builder.Services.AddLocalApiAuthentication();
     builder.Services.AddControllers();
+
 
     var app = builder
         .ConfigureServices()

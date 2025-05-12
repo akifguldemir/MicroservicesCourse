@@ -1,10 +1,15 @@
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Validation;
 using FreeCourse.IdentityServer.Data;
 using FreeCourse.IdentityServer.Models;
+using FreeCourse.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Duende.IdentityServer.Extensions;
+
+
 
 namespace FreeCourse.IdentityServer;
 
@@ -21,7 +26,8 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-        builder.Services
+        // Fix: Use AddIdentityServer to get an IIdentityServerBuilder and chain the AddResourceOwnerValidator method  
+        var identityServerBuilder = builder.Services
             .AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -33,29 +39,32 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddInMemoryApiResources(new[]
-            {
-                // ApiResource tanýmlamalarý
-                new ApiResource("resource_catalog")
-                {
-                    Scopes = { "catalog_fullpermission" }
-                },
-                new ApiResource("photo_stock")
-                {
-                    Scopes = { "photo_stock_fullpermission" }
-                },
-                new ApiResource(IdentityServerConstants.LocalApi.ScopeName) // Local API
+            {  
+               // ApiResource definitions  
+               new ApiResource("resource_catalog")
+               {
+                   Scopes = { "catalog_fullpermission" }
+               },
+               new ApiResource("photo_stock")
+               {
+                   Scopes = { "photo_stock_fullpermission" }
+               },
+               new ApiResource(IdentityServerConstants.LocalApi.ScopeName) // Local API  
             })
             .AddAspNetIdentity<ApplicationUser>()
             .AddLicenseSummary();
+
+        // Add the custom resource owner password validator  
+        identityServerBuilder.AddResourceOwnerValidator<IdentityResourceOwnerValidator>();
 
         builder.Services.AddAuthentication()
             .AddGoogle(options =>
             {
                 options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                // register your IdentityServer with Google at https://console.developers.google.com
-                // enable the Google+ API
-                // set the redirect URI to https://localhost:5001/signin-google
+                // Register your IdentityServer with Google at https://console.developers.google.com  
+                // Enable the Google+ API  
+                // Set the redirect URI to https://localhost:5001/signin-google  
                 options.ClientId = "copy client ID from Google here";
                 options.ClientSecret = "copy client secret from Google here";
             });
