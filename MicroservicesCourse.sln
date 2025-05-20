@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.IdentityServer", "IdentityServer\FreeCourse.IdentityServer\FreeCourse.IdentityServer.csproj", "{8FB5AC7C-0625-A286-A14C-514F2E63D009}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", "{614A7A66-13AE-4658-AE0A-5567EACEDDD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.PhotoStock", "Services\PhotoStock\FreeCourse.Services.PhotoStock\FreeCourse.Services.PhotoStock.csproj", "{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{8FB5AC7C-0625-A286-A14C-514F2E63D009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FB5AC7C-0625-A286-A14C-514F2E63D009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FB5AC7C-0625-A286-A14C-514F2E63D009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,8 @@ Global
 		{04674DE2-0461-419E-B7C8-1F2B89721088} = {1C4620B8-F98F-4AC0-A58B-869E6FC31864}
 		{AD29D4F7-D0AD-47BB-96A3-4397C23671B0} = {9B4E8D61-D04C-42CA-A810-B627CEDE8E00}
 		{8FB5AC7C-0625-A286-A14C-514F2E63D009} = {90E76684-F5BC-481D-B3A3-CD1727AE6ED6}
+		{614A7A66-13AE-4658-AE0A-5567EACEDDD4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C2CAB89D-8036-4C90-B5AB-D22A65B4A41A} = {614A7A66-13AE-4658-AE0A-5567EACEDDD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {038414CA-0F87-490D-BE9A-23B2497B76B5}
