@@ -9,7 +9,7 @@ public static class Config
         new ApiResource[]
         {
             new ApiResource("resource_catalog"){Scopes = { "catalog_fullpermission" }},
-            new ApiResource("photo_stock"){Scopes = { "photo_stock_fullpermission" }},
+            new ApiResource("photo_stock_catalog"){Scopes = { "photo_stock_fullpermission" }},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 

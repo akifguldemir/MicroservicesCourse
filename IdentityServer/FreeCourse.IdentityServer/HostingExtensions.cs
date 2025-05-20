@@ -45,7 +45,7 @@ internal static class HostingExtensions
                {
                    Scopes = { "catalog_fullpermission" }
                },
-               new ApiResource("photo_stock")
+               new ApiResource("photo_stock_catalog")
                {
                    Scopes = { "photo_stock_fullpermission" }
                },
